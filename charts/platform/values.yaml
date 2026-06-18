@@ -1,0 +1,10 @@
+# --- AWS ---
+aws:
+  region: ca-central-1
+
+# --- ClusterSecretStore ---
+clusterSecretStore:
+  enabled: true
+  name: aws-secrets-manager
+  serviceAccountName: external-secrets
+  serviceAccountNamespace: external-secrets
