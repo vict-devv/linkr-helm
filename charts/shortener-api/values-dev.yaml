@@ -34,5 +34,5 @@ secrets:
   name: shortener-api-secrets-dev
 
 # --- External Secrets ---
-externalSecrets:
+externalSecret:
   secretsManagerKey: linkr/dev/shortener-api
