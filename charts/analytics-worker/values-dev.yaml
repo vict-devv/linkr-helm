@@ -1,0 +1,37 @@
+# --- Dev values that overwrite default (prod)
+# --- Image ---
+image:
+  pullPolicy: Always
+
+# --- Replicas ---
+replicaCount: 1
+
+# -- Resources ---
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+# --- HPA ---
+hpa:
+  enabled: false
+  minReplicas: 1
+
+# --- PDB ---
+pdb:
+  enabled: false
+
+# --- Config ---
+config:
+  AMQP_PREFETCH: "5"
+
+# --- Secrets (reference only) ---
+secrets:
+  name: analytics-worker-secrets-dev
+
+# --- External Secrets ---
+externalSecret:
+  secretsManagerKey: linkr/dev/analytics-worker
