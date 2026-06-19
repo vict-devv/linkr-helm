@@ -1,0 +1,70 @@
+# --- Image ---
+image:
+  repository: "064160141787.dkr.ecr.ca-central-1.amazonaws.com/stats-api"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# --- Replicas ---
+replicaCount: 2
+
+# --- Service ---
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8083
+
+# -- Resources ---
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# --- HPA ---
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+# --- PDB ---
+pdb:
+  enabled: true
+  minAvailable: 1
+
+# --- Health Probes ---
+probes:
+  liveness:
+    path: /health
+    initialDelaySeconds: 10
+    periodSeconds: 15
+  readiness:
+    path: /health
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+# --- Config ---
+config:
+  PORT: 8083
+  MONGO_DB: analytics
+  MONGO_COLLECTION: click_events
+  STATS_WINDOW_DAYS: "30"
+  TOP_REFERRERS_LIMIT: "10"
+
+# --- Secrets (reference only) ---
+secrets:
+  name: stats-api-secrets-prod
+  mongoURIKey: MONGO_URI
+
+# --- External Secrets ---
+externalSecret:
+  enabled: true
+  storeName: aws-secrets-manager
+  secretsManagerKey: linkr/prod/stats-api
+
+# --- Service Account ---
+serviceAccount:
+  create: true
+  name: "" # Auto-generate from release name if it's empty

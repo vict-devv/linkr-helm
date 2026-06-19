@@ -1,0 +1,37 @@
+# --- Dev values that overwrite default (prod)
+# --- Image ---
+image:
+  pullPolicy: Always
+
+# --- Replicas ---
+replicaCount: 1
+
+# -- Resources ---
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+# --- HPA ---
+hpa:
+  enabled: false
+  minReplicas: 1
+
+# --- PDB ---
+pdb:
+  enabled: false
+
+# --- Config ---
+config:
+  STATS_WINDOW_DAYS: "7"
+
+# --- Secrets (reference only) ---
+secrets:
+  name: stats-api-secrets-dev
+
+# --- External Secrets ---
+externalSecret:
+  secretsManagerKey: linkr/dev/stats-api
