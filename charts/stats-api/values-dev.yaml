@@ -1,6 +1,7 @@
 # --- Dev values that overwrite default (prod)
 # --- Image ---
 image:
+  repository: "064160141787.dkr.ecr.ca-central-1.amazonaws.com/stats-api-dev"
   pullPolicy: Always
 
 # --- Replicas ---
